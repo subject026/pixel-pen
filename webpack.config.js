@@ -1,4 +1,7 @@
 const path = require("path");
+const webpack = require("webpack");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 module.exports = {
   target: "web",
@@ -23,5 +26,11 @@ module.exports = {
   devServer: {
     contentBase: "./dist",
     port: 5000
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.browser": "true"
+    }),
+    new BundleAnalyzerPlugin()
+  ]
 };

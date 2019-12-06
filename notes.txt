@@ -1,0 +1,15 @@
+// add publishing spinner or some such
+
+// sort some cursors
+
+// toolbar
+
+- colors, add color / replace currently selected color.
+- undo / redo
+
+
+
+
+Laterz.....................................................
+
+code splitting for jimp

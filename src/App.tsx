@@ -28,15 +28,10 @@ const App = props => {
   const {
     svgX,
     svgY,
-    mouseX,
-    mouseY,
     cells,
-    currentColor,
     zoom,
     dispatchMouseEnter,
-    dispatchMouseLeave,
-    dispatchAddCell,
-    dispatchCellClick
+    dispatchMouseLeave
   } = props;
 
   const svgRef = useRef(null);
@@ -53,7 +48,6 @@ const App = props => {
     dispatchMouseLeave();
   };
 
-  // console.log("App render props: ", props);
   return (
     <main>
       <GlobalStyles />
@@ -90,12 +84,12 @@ const mapDispatchToProps = dispatch => {
   return {
     dispatchMouseEnter() {
       dispatch({
-        type: "MOUSE_ENTER"
+        type: "SVG_ENTER"
       });
     },
     dispatchMouseLeave() {
       dispatch({
-        type: "MOUSE_LEAVE"
+        type: "SVG_LEAVE"
       });
     },
     dispatchAddCell(payload) {

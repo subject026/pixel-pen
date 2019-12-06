@@ -1,10 +1,11 @@
 const initialState = {
   ctrlIsDown: null,
   mouseIsDown: null,
-  mouseX: 0,
-  mouseY: 0,
-  oldMouseX: 0,
-  oldMouseY: 0,
+  mouseX: null,
+  mouseY: null,
+  oldMouseX: null,
+  oldMouseY: null,
+  mouseIsOverSvg: false,
   svgX: 0,
   svgY: 0,
   zoom: 500,
@@ -50,6 +51,19 @@ export const mainReducer = (state = initialState, action) => {
         oldMouseY: state.mouseY
       };
       return newState;
+    case "SVG_ENTER":
+      newState = {
+        ...state,
+        mouseIsOverSvg: true
+      };
+      return newState;
+    case "SVG_LEAVE":
+      newState = {
+        ...state,
+        mouseIsOverSvg: false
+      };
+      return newState;
+
     case "SVG_DRAG":
       const { xOffset, yOffset } = action.payload;
       newState = {
@@ -98,7 +112,6 @@ export const mainReducer = (state = initialState, action) => {
       return newState;
     case "UPDATE_CELL":
       const newCells = { ...state.cells };
-      console.log(action.payload.cellKey);
       newCells[action.payload.cellKey] = {
         ...state.cells[action.payload.cellKey],
         color: action.payload.currentColor
