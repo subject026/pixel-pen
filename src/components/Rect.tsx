@@ -38,7 +38,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    dispatchUpdateCell(payload) {
+    dispatchUpdateCell(payload: TPayload) {
       dispatch({
         type: "UPDATE_CELL",
         payload

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-
 import styled from "styled-components";
+import styledComponentsTS from "styled-components-ts";
 
 const Nav = styled.nav`
   position: absolute;
@@ -26,7 +26,7 @@ const Pallet = styled.section`
   }
 `;
 
-const CurrentColor = styled.div`
+const CurrentColor = styledComponentsTS<TProps>(styled.div)`
   grid-column-start: 2;
   grid-column-end: 3;
   width: 60px;

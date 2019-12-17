@@ -91,19 +91,19 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: "SVG_LEAVE"
       });
-    },
-    dispatchAddCell(payload) {
-      dispatch({
-        type: "ADD_CELL",
-        payload
-      });
-    },
-    dispatchCellClick(payload) {
-      dispatch({
-        type: "CLICK_CELL",
-        payload
-      });
     }
+    // dispatchAddCell(payload: TPayload) {
+    //   dispatch({
+    //     type: "ADD_CELL",
+    //     payload
+    //   });
+    // },
+    // dispatchCellClick(payload: TPayload) {
+    //   dispatch({
+    //     type: "CLICK_CELL",
+    //     payload
+    //   });
+    // }
   };
 };
 
