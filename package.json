@@ -6,7 +6,8 @@
   "scripts": {
     "start": "MODE=development webpack-dev-server --open",
     "build": "MODE=production webpack",
-    "serve": "serve dist"
+    "serve": "serve dist",
+    "lint": "eslint --ext ts,tsx src/*"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +34,7 @@
     "serve": "^11.2.0",
     "styled-components": "^4.4.1",
     "styled-components-ts": "0.0.15",
+    "typescript": "^3.7.3",
     "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.10",
