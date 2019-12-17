@@ -1,10 +1,10 @@
 interface TAction {
   type: string;
-  payload: TPayload;
+  payload?: TPayload;
 }
 
 interface TPayload {
-  [key: string]: any;
+  [key: string]: string | number;
 }
 
 interface TState {
@@ -18,13 +18,17 @@ interface TState {
   svgX: number;
   svgY: number;
   zoom: number;
-  cells: {
-    [key: string]: any;
-  };
+  cells: Record<string, TCell>;
   currentColor: string;
   colors: Array<string>;
 }
 
-interface TProps {
-  [key: string]: any;
+interface TStyledProps {
+  [key: string]: string;
+}
+
+interface TCell {
+  x: number;
+  y: number;
+  color: string;
 }

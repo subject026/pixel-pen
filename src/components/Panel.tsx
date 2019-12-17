@@ -26,21 +26,28 @@ const Pallet = styled.section`
   }
 `;
 
-const CurrentColor = styledComponentsTS<TProps>(styled.div)`
+const CurrentColor = styledComponentsTS<TStyledProps>(styled.div)`
   grid-column-start: 2;
   grid-column-end: 3;
   width: 60px;
   height: 60px;
-  background-color: ${({ currentColor }) => currentColor};
+  background-color: ${({ currentColor }): string => currentColor};
 `;
 
 const ColorButton = styled.button`
-  background-color: ${({ color }) => color};
+  background-color: ${({ color }): string => color};
   height: 30px;
   width: 30px;
 `;
 
-const Panel = ({
+interface TPanelProps {
+  colors: Array<string>;
+  currentColor: string;
+  dispatchAddColor: Function;
+  dispatchChangeColor: Function;
+}
+
+const Panel: React.FC<TPanelProps> = ({
   colors,
   currentColor,
   dispatchAddColor,
@@ -48,12 +55,12 @@ const Panel = ({
 }) => {
   const [state, setState] = useState({ color: "" });
 
-  const handleAddColor = event => {
+  const handleAddColor = (event): void => {
     event.preventDefault();
     dispatchAddColor(state.color);
   };
 
-  const handleInputChange = ({ target }) => {
+  const handleInputChange = ({ target }): void => {
     setState(state => {
       return {
         ...state,
@@ -62,7 +69,7 @@ const Panel = ({
     });
   };
 
-  const handleChangeColor = color => {
+  const handleChangeColor = (color): void => {
     dispatchChangeColor(color);
   };
 
@@ -72,8 +79,9 @@ const Panel = ({
         <ul>
           {colors.map(color => (
             <ColorButton
+              key={`color_${color}`}
               color={color}
-              onClick={() => handleChangeColor(color)}
+              onClick={(): void => handleChangeColor(color)}
             />
           ))}
         </ul>
@@ -86,22 +94,22 @@ const Panel = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state): object => {
   return {
     currentColor: state.currentColor,
     colors: [...state.colors]
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): object => {
   return {
-    dispatchAddColor(payload) {
+    dispatchAddColor(payload): void {
       dispatch({
         type: "ADD_COLOR",
         payload
       });
     },
-    dispatchChangeColor(payload) {
+    dispatchChangeColor(payload): void {
       dispatch({
         type: "CHANGE_COLOR",
         payload

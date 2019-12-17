@@ -24,27 +24,34 @@ const SVG = styled.svg`
   stroke-width: 0;
 `;
 
-const App = props => {
-  const {
-    svgX,
-    svgY,
-    cells,
-    zoom,
-    dispatchMouseEnter,
-    dispatchMouseLeave
-  } = props;
+interface TAppProps {
+  svgX: number;
+  svgY: number;
+  cells: object;
+  zoom: number;
+  dispatchMouseEnter: Function;
+  dispatchMouseLeave: Function;
+}
 
+const App: React.FC<TAppProps> = ({
+  svgX,
+  svgY,
+  cells,
+  zoom,
+  dispatchMouseEnter,
+  dispatchMouseLeave
+}) => {
   const svgRef = useRef(null);
 
   useEffect(() => {
     attachKeybindings(svgRef);
   }, []);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (): void => {
     dispatchMouseEnter();
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (): void => {
     dispatchMouseLeave();
   };
 
@@ -66,7 +73,7 @@ const App = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state): object => {
   return {
     ctrlIsDown: state.ctrlIsDown,
     mouseIsOverSvg: state.mouseIsOverSvg,
@@ -80,30 +87,18 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): object => {
   return {
-    dispatchMouseEnter() {
+    dispatchMouseEnter(): void {
       dispatch({
         type: "SVG_ENTER"
       });
     },
-    dispatchMouseLeave() {
+    dispatchMouseLeave(): void {
       dispatch({
         type: "SVG_LEAVE"
       });
     }
-    // dispatchAddCell(payload: TPayload) {
-    //   dispatch({
-    //     type: "ADD_CELL",
-    //     payload
-    //   });
-    // },
-    // dispatchCellClick(payload: TPayload) {
-    //   dispatch({
-    //     type: "CLICK_CELL",
-    //     payload
-    //   });
-    // }
   };
 };
 

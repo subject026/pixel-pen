@@ -1,14 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const Rect = ({
+interface TRectProps {
+  cellKey: string;
+  currentColor: string;
+  mouseIsDown: boolean;
+  cell: TCell;
+  dispatchUpdateCell: Function;
+}
+
+const Rect: React.FC<TRectProps> = ({
   cellKey,
   currentColor,
   mouseIsDown,
   cell,
   dispatchUpdateCell
 }) => {
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (): void => {
     if (mouseIsDown) {
       if (cell.color !== currentColor) {
         dispatchUpdateCell({ cellKey, currentColor });
@@ -17,7 +25,7 @@ const Rect = ({
   };
   return (
     <rect
-      shape-rendering="crispEdges"
+      shapeRendering="crispEdges"
       width="20"
       height="20"
       x={cell.x}
@@ -29,16 +37,16 @@ const Rect = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state): object => {
   return {
     currentColor: state.currentColor,
     mouseIsDown: state.mouseIsDown
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): object => {
   return {
-    dispatchUpdateCell(payload: TPayload) {
+    dispatchUpdateCell(payload: TPayload): void {
       dispatch({
         type: "UPDATE_CELL",
         payload

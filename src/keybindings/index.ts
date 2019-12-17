@@ -3,7 +3,7 @@ import throttle from "lodash.throttle";
 import { store } from "../store";
 import { publish } from "./publish";
 
-const roundDown = num => {
+const roundDown = (num): number => {
   if (num % 20 !== 0) {
     return roundDown(num - 1);
   } else {
@@ -11,8 +11,8 @@ const roundDown = num => {
   }
 };
 
-export const attachKeybindings = svgRef => {
-  const updateCells = () => {
+export const attachKeybindings = (svgRef): void => {
+  const updateCells = (): void => {
     const { mouseX, mouseY, cells, currentColor } = store.getState();
     if (mouseX === null) return;
     const pt = svgRef.current.createSVGPoint();
