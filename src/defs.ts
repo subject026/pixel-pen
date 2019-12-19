@@ -32,7 +32,12 @@ interface TState {
   cells: Record<string, TCell>;
   currentColor: string;
   currentBackgroundColor: string;
-  colors: Array<string>;
+  colors: Record<string, TColor>;
+}
+
+interface TColor {
+  hue: number;
+  current: Record<string, number>;
 }
 
 interface TStyledProps {
@@ -42,5 +47,5 @@ interface TStyledProps {
 interface TCell {
   x: number;
   y: number;
-  color: string;
+  hsl: string;
 }

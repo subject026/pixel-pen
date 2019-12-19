@@ -45,39 +45,28 @@ interface TPanelProps {
 }
 
 const Panel: React.FC<TPanelProps> = ({ colors, currentColor, dispatchAddColor, dispatchChangeColor }) => {
-  const [state, setState] = useState({ color: '' });
-
-  const handleAddColor = (event): void => {
-    event.preventDefault();
-    dispatchAddColor({ color: state.color });
+  const handleAddColor = (): void => {
+    dispatchAddColor();
   };
 
-  const handleInputChange = ({ target }): void => {
-    setState(state => {
-      return {
-        ...state,
-        color: target.value,
-      };
-    });
+  const handleChangeColor = (key): void => {
+    dispatchChangeColor({ key });
   };
-
-  const handleChangeColor = (color): void => {
-    dispatchChangeColor({ color });
-  };
-
   return (
     <Nav>
       <Pallet>
         <ul>
-          {colors.map(color => (
-            <ColorButton key={`color_${color}`} color={color} onClick={(): void => handleChangeColor(color)} />
+          {Object.keys(colors).map(key => (
+            <ColorButton
+              key={`color_${colors[key]}`}
+              color={`hsl(${colors[key].hue}, 100%, 50%)`}
+              onClick={(): void => handleChangeColor(key)}
+            />
           ))}
         </ul>
-        <CurrentColor currentColor={currentColor} />
+        {/* {currentColor && <CurrentColor currentColor={`hsl(${colors[currentColor].hue}, 100%, 50%)`} />} */}
       </Pallet>
-      <form onSubmit={handleAddColor}>
-        #<input type="text" onChange={handleInputChange} />
-      </form>
+      <button onClick={handleAddColor}>Add Color</button>
     </Nav>
   );
 };
@@ -85,16 +74,15 @@ const Panel: React.FC<TPanelProps> = ({ colors, currentColor, dispatchAddColor, 
 const mapStateToProps = (state): object => {
   return {
     currentColor: state.currentColor,
-    colors: [...state.colors],
+    colors: { ...state.colors },
   };
 };
 
 const mapDispatchToProps = (dispatch): object => {
   return {
-    dispatchAddColor(payload): void {
+    dispatchAddColor(): void {
       dispatch({
         type: 'ADD_COLOR',
-        payload,
       });
     },
     dispatchChangeColor(payload): void {

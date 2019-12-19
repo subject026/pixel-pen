@@ -12,7 +12,7 @@ const initialState: TState = {
   cells: {},
   currentColor: 'pink',
   currentBackgroundColor: 'red',
-  colors: ['pink', 'red', 'purple'],
+  colors: {},
 };
 
 export const mainReducer = (state: TState = initialState, action): TState => {
@@ -80,21 +80,6 @@ export const mainReducer = (state: TState = initialState, action): TState => {
       };
       return newState;
     }
-    case 'ADD_CELL': {
-      const { cellKey, x, y, color } = action.payload;
-      const newState: TState = {
-        ...state,
-        cells: {
-          ...state.cells,
-          [cellKey]: {
-            x,
-            y,
-            color,
-          },
-        },
-      };
-      return newState;
-    }
     case 'ZOOM_IN': {
       const newState: TState = {
         ...state,
@@ -109,19 +94,21 @@ export const mainReducer = (state: TState = initialState, action): TState => {
       };
       return newState;
     }
-    case 'ADD_COLOR': {
-      const { color } = action.payload;
+    case 'ADD_CELL': {
+      const { colors } = state;
+      const { cellKey, x, y, color } = action.payload;
+      const hsl = `hsl(${colors[color].current.h}, ${colors[color].current.s}%, ${colors[color].current.l}%)`;
+      console.log(hsl);
       const newState: TState = {
         ...state,
-        colors: [...state.colors, color],
-      };
-      return newState;
-    }
-    case 'CHANGE_COLOR': {
-      const { color } = action.payload;
-      const newState: TState = {
-        ...state,
-        currentColor: color,
+        cells: {
+          ...state.cells,
+          [cellKey]: {
+            x,
+            y,
+            hsl: hsl,
+          },
+        },
       };
       return newState;
     }
@@ -139,5 +126,32 @@ export const mainReducer = (state: TState = initialState, action): TState => {
     }
     default:
       return state;
+    //
+    // Color Stuff
+    case 'ADD_COLOR': {
+      const key = 'magicsawdust' + Math.random() * Math.random() * 1000;
+      const color: TColor = {
+        hue: 40,
+        current: {
+          h: 40,
+          s: 100,
+          l: 50,
+        },
+      };
+      const newState: TState = {
+        ...state,
+        colors: { ...state.colors, [key]: color },
+        currentColor: key,
+      };
+      return newState;
+    }
+    case 'CHANGE_COLOR': {
+      const { key } = action.payload;
+      const newState: TState = {
+        ...state,
+        currentColor: key,
+      };
+      return newState;
+    }
   }
 };

@@ -12,7 +12,7 @@ interface TRectProps {
 const Rect: React.FC<TRectProps> = ({ cellKey, currentColor, mouseIsDown, cell, dispatchUpdateCell }) => {
   const handleMouseEnter = (): void => {
     if (mouseIsDown) {
-      if (cell.color !== currentColor) {
+      if (cell.hsl !== currentColor) {
         dispatchUpdateCell({ cellKey, currentColor });
       }
     }
@@ -24,8 +24,8 @@ const Rect: React.FC<TRectProps> = ({ cellKey, currentColor, mouseIsDown, cell, 
       height="20"
       x={cell.x}
       y={cell.y}
-      fill={cell.color}
-      stroke={cell.color}
+      fill={cell.hsl}
+      stroke={cell.hsl}
       onMouseEnter={handleMouseEnter}
     ></rect>
   );
