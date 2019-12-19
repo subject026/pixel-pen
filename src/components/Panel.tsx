@@ -1,28 +1,25 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import styled from "styled-components";
-import styledComponentsTS from "styled-components-ts";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import styledComponentsTS from 'styled-components-ts';
 
 const Nav = styled.nav`
-  position: absolute;
-  top: 0;
-  right: 0;
   padding: 40px;
-  background-color: midnightblue;
+  background-color: #202020;
 `;
 
 const Pallet = styled.section`
   display: grid;
   grid-auto-columns: 2fr 1fr;
   ul {
+    width: 500px;
     grid-column-start: 1;
     grid-column-end: 2;
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(12, 1fr);
   }
 `;
 
@@ -47,13 +44,8 @@ interface TPanelProps {
   dispatchChangeColor: Function;
 }
 
-const Panel: React.FC<TPanelProps> = ({
-  colors,
-  currentColor,
-  dispatchAddColor,
-  dispatchChangeColor
-}) => {
-  const [state, setState] = useState({ color: "" });
+const Panel: React.FC<TPanelProps> = ({ colors, currentColor, dispatchAddColor, dispatchChangeColor }) => {
+  const [state, setState] = useState({ color: '' });
 
   const handleAddColor = (event): void => {
     event.preventDefault();
@@ -64,7 +56,7 @@ const Panel: React.FC<TPanelProps> = ({
     setState(state => {
       return {
         ...state,
-        color: target.value
+        color: target.value,
       };
     });
   };
@@ -78,11 +70,7 @@ const Panel: React.FC<TPanelProps> = ({
       <Pallet>
         <ul>
           {colors.map(color => (
-            <ColorButton
-              key={`color_${color}`}
-              color={color}
-              onClick={(): void => handleChangeColor(color)}
-            />
+            <ColorButton key={`color_${color}`} color={color} onClick={(): void => handleChangeColor(color)} />
           ))}
         </ul>
         <CurrentColor currentColor={currentColor} />
@@ -97,7 +85,7 @@ const Panel: React.FC<TPanelProps> = ({
 const mapStateToProps = (state): object => {
   return {
     currentColor: state.currentColor,
-    colors: [...state.colors]
+    colors: [...state.colors],
   };
 };
 
@@ -105,16 +93,16 @@ const mapDispatchToProps = (dispatch): object => {
   return {
     dispatchAddColor(payload): void {
       dispatch({
-        type: "ADD_COLOR",
-        payload
+        type: 'ADD_COLOR',
+        payload,
       });
     },
     dispatchChangeColor(payload): void {
       dispatch({
-        type: "CHANGE_COLOR",
-        payload
+        type: 'CHANGE_COLOR',
+        payload,
       });
-    }
+    },
   };
 };
 

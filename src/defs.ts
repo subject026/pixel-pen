@@ -31,11 +31,12 @@ interface TState {
   zoom: number;
   cells: Record<string, TCell>;
   currentColor: string;
+  currentBackgroundColor: string;
   colors: Array<string>;
 }
 
 interface TStyledProps {
-  [key: string]: string;
+  [key: string]: any;
 }
 
 interface TCell {

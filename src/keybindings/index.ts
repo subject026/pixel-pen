@@ -1,7 +1,7 @@
 import throttle from 'lodash.throttle';
 
 import { store } from '../store';
-import { publish } from './publish';
+// import { publish } from './publish';
 
 const roundDown = (num): number => {
   if (num % 20 !== 0) {
@@ -66,7 +66,7 @@ export const attachKeybindings = (svgRef): void => {
       }
       if (event.keyCode === 80) {
         event.preventDefault();
-        publish();
+        // publish();
         // create a canvas from state
       }
     }

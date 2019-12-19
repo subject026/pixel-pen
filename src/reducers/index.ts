@@ -11,6 +11,7 @@ const initialState: TState = {
   zoom: 500,
   cells: {},
   currentColor: 'pink',
+  currentBackgroundColor: 'red',
   colors: ['pink', 'red', 'purple'],
 };
 

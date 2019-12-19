@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import { connect } from "react-redux";
-import styled, { createGlobalStyle } from "styled-components";
+import React, { useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import styled, { createGlobalStyle } from 'styled-components';
+import styledComponentsTS from 'styled-components-ts';
 
-import { attachKeybindings } from "./keybindings";
-import Panel from "./components/Panel";
-import Rect from "./components/Rect";
+import { attachKeybindings } from './keybindings';
+import Panel from './components/Panel';
+import Rect from './components/Rect';
 
 const GlobalStyles = createGlobalStyle`
   body, html {
@@ -17,8 +18,8 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const SVG = styled.svg`
-  background-color: #fff;
+const SVG = styledComponentsTS<TStyledProps>(styled.svg)`
+  background-color: ${({ currentBackgroundColor }): string => currentBackgroundColor};
   width: 100%;
   height: 100%;
   stroke-width: 0;
@@ -29,6 +30,7 @@ interface TAppProps {
   svgY: number;
   cells: object;
   zoom: number;
+  currentBackgroundColor: string;
   dispatchMouseEnter: Function;
   dispatchMouseLeave: Function;
 }
@@ -38,8 +40,9 @@ const App: React.FC<TAppProps> = ({
   svgY,
   cells,
   zoom,
+  currentBackgroundColor,
   dispatchMouseEnter,
-  dispatchMouseLeave
+  dispatchMouseLeave,
 }) => {
   const svgRef = useRef(null);
 
@@ -62,6 +65,7 @@ const App: React.FC<TAppProps> = ({
       <SVG
         ref={svgRef}
         viewBox={`${svgX} ${svgY} ${zoom} ${zoom}`}
+        currentBackgroundColor={currentBackgroundColor}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -83,7 +87,8 @@ const mapStateToProps = (state): object => {
     mouseY: state.mouseY,
     cells: { ...state.cells },
     currentColor: state.currentColor,
-    zoom: state.zoom
+    currentBackgroundColor: state.currentBackgroundColor,
+    zoom: state.zoom,
   };
 };
 
@@ -91,14 +96,14 @@ const mapDispatchToProps = (dispatch): object => {
   return {
     dispatchMouseEnter(): void {
       dispatch({
-        type: "SVG_ENTER"
+        type: 'SVG_ENTER',
       });
     },
     dispatchMouseLeave(): void {
       dispatch({
-        type: "SVG_LEAVE"
+        type: 'SVG_LEAVE',
       });
-    }
+    },
   };
 };
 

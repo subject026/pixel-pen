@@ -2,7 +2,7 @@ import Jimp from 'jimp/es';
 import { store } from '../store';
 
 export const publish = (): void => {
-  const { cells } = store.getState();
+  const { cells, currentBackgroundColor } = store.getState();
   const canvas = document.createElement('canvas');
   const boo = Object.keys(cells).reduce(
     (acc, key) => {
@@ -39,6 +39,11 @@ export const publish = (): void => {
   canvas.width = (highestX - lowestX + 20) * 5;
   canvas.height = (highestY - lowestY + 20) * 5;
   const ctx = canvas.getContext('2d');
+
+  if (currentBackgroundColor !== 'transparent') {
+    ctx.fillStyle = currentBackgroundColor;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
 
   Object.keys(cells).forEach(key => {
     const { x, y, color } = cells[key];

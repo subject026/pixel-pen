@@ -1,5 +1,5 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
 interface TRectProps {
   cellKey: string;
@@ -9,13 +9,7 @@ interface TRectProps {
   dispatchUpdateCell: Function;
 }
 
-const Rect: React.FC<TRectProps> = ({
-  cellKey,
-  currentColor,
-  mouseIsDown,
-  cell,
-  dispatchUpdateCell
-}) => {
+const Rect: React.FC<TRectProps> = ({ cellKey, currentColor, mouseIsDown, cell, dispatchUpdateCell }) => {
   const handleMouseEnter = (): void => {
     if (mouseIsDown) {
       if (cell.color !== currentColor) {
@@ -40,7 +34,7 @@ const Rect: React.FC<TRectProps> = ({
 const mapStateToProps = (state): object => {
   return {
     currentColor: state.currentColor,
-    mouseIsDown: state.mouseIsDown
+    mouseIsDown: state.mouseIsDown,
   };
 };
 
@@ -48,10 +42,10 @@ const mapDispatchToProps = (dispatch): object => {
   return {
     dispatchUpdateCell(payload: TPayload): void {
       dispatch({
-        type: "UPDATE_CELL",
-        payload
+        type: 'UPDATE_CELL',
+        payload,
       });
-    }
+    },
   };
 };
 
