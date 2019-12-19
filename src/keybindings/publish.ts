@@ -46,8 +46,8 @@ export const publish = (): void => {
   }
 
   Object.keys(cells).forEach(key => {
-    const { x, y, color } = cells[key];
-    ctx.fillStyle = color;
+    const { x, y, hsl } = cells[key];
+    ctx.fillStyle = hsl;
     ctx.fillRect((x - lowestX) * 5, (y - lowestY) * 5, 20 * 5, 20 * 5);
   });
 

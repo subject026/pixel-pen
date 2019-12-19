@@ -30,6 +30,7 @@ interface TAppProps {
   svgY: number;
   cells: object;
   zoom: number;
+  colors: Record<string, string>;
   currentBackgroundColor: string;
   dispatchMouseEnter: Function;
   dispatchMouseLeave: Function;
@@ -40,6 +41,7 @@ const App: React.FC<TAppProps> = ({
   svgY,
   cells,
   zoom,
+  colors,
   currentBackgroundColor,
   dispatchMouseEnter,
   dispatchMouseLeave,
@@ -58,6 +60,8 @@ const App: React.FC<TAppProps> = ({
     dispatchMouseLeave();
   };
 
+  console.log(colors[currentBackgroundColor]);
+
   return (
     <main>
       <GlobalStyles />
@@ -65,7 +69,11 @@ const App: React.FC<TAppProps> = ({
       <SVG
         ref={svgRef}
         viewBox={`${svgX} ${svgY} ${zoom} ${zoom}`}
-        currentBackgroundColor={currentBackgroundColor}
+        currentBackgroundColor={
+          currentBackgroundColor
+            ? `hsl(${colors[currentBackgroundColor].current.h}, ${colors[currentBackgroundColor].current.s}%, ${colors[currentBackgroundColor].current.l})`
+            : 'white'
+        }
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -86,6 +94,7 @@ const mapStateToProps = (state): object => {
     mouseX: state.mouseX,
     mouseY: state.mouseY,
     cells: { ...state.cells },
+    colors: { ...state.colors },
     currentColor: state.currentColor,
     currentBackgroundColor: state.currentBackgroundColor,
     zoom: state.zoom,

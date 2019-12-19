@@ -10,13 +10,13 @@ interface TRectProps {
 }
 
 const Rect: React.FC<TRectProps> = ({ cellKey, currentColor, mouseIsDown, cell, dispatchUpdateCell }) => {
-  const handleMouseEnter = (): void => {
-    if (mouseIsDown) {
-      if (cell.hsl !== currentColor) {
-        dispatchUpdateCell({ cellKey, currentColor });
-      }
-    }
-  };
+  // const handleMouseEnter = (): void => {
+  //   if (mouseIsDown) {
+  //     if (cell.hsl !== currentColor) {
+  //       dispatchUpdateCell({ cellKey, currentColor });
+  //     }
+  //   }
+  // };
   return (
     <rect
       shapeRendering="crispEdges"
@@ -26,7 +26,7 @@ const Rect: React.FC<TRectProps> = ({ cellKey, currentColor, mouseIsDown, cell, 
       y={cell.y}
       fill={cell.hsl}
       stroke={cell.hsl}
-      onMouseEnter={handleMouseEnter}
+      // onMouseEnter={handleMouseEnter}
     ></rect>
   );
 };

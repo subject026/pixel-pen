@@ -10,8 +10,8 @@ const initialState: TState = {
   svgY: 0,
   zoom: 500,
   cells: {},
-  currentColor: 'pink',
-  currentBackgroundColor: 'red',
+  currentColor: null,
+  currentBackgroundColor: null,
   colors: {},
 };
 
@@ -98,7 +98,6 @@ export const mainReducer = (state: TState = initialState, action): TState => {
       const { colors } = state;
       const { cellKey, x, y, color } = action.payload;
       const hsl = `hsl(${colors[color].current.h}, ${colors[color].current.s}%, ${colors[color].current.l}%)`;
-      console.log(hsl);
       const newState: TState = {
         ...state,
         cells: {
@@ -116,7 +115,7 @@ export const mainReducer = (state: TState = initialState, action): TState => {
       const newCells = { ...state.cells };
       newCells[action.payload.cellKey] = {
         ...state.cells[action.payload.cellKey],
-        color: action.payload.currentColor,
+        hsl: action.payload.currentColor,
       };
       const newState: TState = {
         ...state,
@@ -131,9 +130,9 @@ export const mainReducer = (state: TState = initialState, action): TState => {
     case 'ADD_COLOR': {
       const key = 'magicsawdust' + Math.random() * Math.random() * 1000;
       const color: TColor = {
-        hue: 40,
+        hue: 0,
         current: {
-          h: 40,
+          h: 0,
           s: 100,
           l: 50,
         },
@@ -145,11 +144,39 @@ export const mainReducer = (state: TState = initialState, action): TState => {
       };
       return newState;
     }
+    case 'REMOVE_COLOR':
+      const newColors = state.colors;
+      delete newColors[state.currentColor];
+      const newState = {
+        ...state,
+        colors: { ...newColors },
+        currentColor: null,
+      };
+      return newState;
     case 'CHANGE_COLOR': {
       const { key } = action.payload;
       const newState: TState = {
         ...state,
         currentColor: key,
+      };
+      return newState;
+    }
+    case 'UPDATE_COLOR': {
+      const { value } = action.payload;
+      const { colors, currentColor } = state;
+      colors[currentColor].hue = value;
+      colors[currentColor].current.h = value;
+      const newState: TState = {
+        ...state,
+        colors: { ...colors },
+      };
+      return newState;
+    }
+    case 'SET_BACKGROUND_COLOR': {
+      const { currentColor } = state;
+      const newState: TState = {
+        ...state,
+        currentBackgroundColor: currentColor,
       };
       return newState;
     }
