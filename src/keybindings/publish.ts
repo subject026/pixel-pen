@@ -1,9 +1,9 @@
-import Jimp from "jimp/es";
-import { store } from "../store";
+import Jimp from 'jimp/es';
+import { store } from '../store';
 
-export const publish = () => {
+export const publish = (): void => {
   const { cells } = store.getState();
-  const canvas = document.createElement("canvas");
+  const canvas = document.createElement('canvas');
   const boo = Object.keys(cells).reduce(
     (acc, key) => {
       const { x, y } = cells[key];
@@ -32,34 +32,34 @@ export const publish = () => {
       }
       return acc;
     },
-    { lowestX: null, highestX: null, lowestY: null, highestY: null }
+    { lowestX: null, highestX: null, lowestY: null, highestY: null },
   );
   const { lowestX, lowestY, highestX, highestY } = boo;
 
   canvas.width = (highestX - lowestX + 20) * 5;
   canvas.height = (highestY - lowestY + 20) * 5;
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
 
   Object.keys(cells).forEach(key => {
-    let { x, y, color } = cells[key];
+    const { x, y, color } = cells[key];
     ctx.fillStyle = color;
     ctx.fillRect((x - lowestX) * 5, (y - lowestY) * 5, 20 * 5, 20 * 5);
   });
 
   const image = new Image();
 
-  const dataUrl = canvas.toDataURL("img/png");
+  const dataUrl = canvas.toDataURL('img/png');
 
   Jimp.read(dataUrl).then(img => {
-    img.resize(1200, Jimp.AUTO);
-    img.quality(60);
-    img.getBase64Async(Jimp.AUTO).then(thing => {
+    img.resize(2400, Jimp.AUTO);
+    img.quality(80);
+    img.getBase64Async(Jimp.MIME_JPEG).then(thing => {
       image.src = thing;
 
-      image.style.width = "100%";
-      image.style.height = "100%";
-      image.style.objectFit = "contain";
-      const w = window.open("");
+      image.style.width = '100%';
+      image.style.height = '100%';
+      image.style.objectFit = 'contain';
+      const w = window.open('');
       w.document.body.appendChild(image);
     });
   });

@@ -1,19 +1,30 @@
 interface TAction {
   type: string;
-  payload?: TPayload;
+  payload?: TNumberPayload | TStringPayload | TCellPayload;
 }
 
-interface TPayload {
-  [key: string]: string | number;
+interface TNumberPayload {
+  [key: string]: number;
+}
+
+interface TStringPayload {
+  [key: string]: string;
+}
+
+interface TCellPayload {
+  cellKey: string;
+  x: number;
+  y: number;
+  color: string;
 }
 
 interface TState {
   ctrlIsDown: boolean;
   mouseIsDown: boolean;
-  mouseX: boolean;
-  mouseY: boolean;
-  oldMouseX: boolean;
-  oldMouseY: boolean;
+  mouseX: number;
+  mouseY: number;
+  oldMouseX: number;
+  oldMouseY: number;
   mouseIsOverSvg: boolean;
   svgX: number;
   svgY: number;

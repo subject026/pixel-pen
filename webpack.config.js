@@ -11,6 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js"
   },
+  devtool: "source-map",
   module: {
     rules: [
       {
@@ -27,6 +28,7 @@ module.exports = {
     contentBase: "./dist",
     port: 5000
   },
+  node: { fs: "empty" },
   plugins: [
     new webpack.DefinePlugin({
       "process.browser": "true"

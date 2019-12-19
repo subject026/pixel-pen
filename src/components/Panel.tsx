@@ -57,7 +57,7 @@ const Panel: React.FC<TPanelProps> = ({
 
   const handleAddColor = (event): void => {
     event.preventDefault();
-    dispatchAddColor(state.color);
+    dispatchAddColor({ color: state.color });
   };
 
   const handleInputChange = ({ target }): void => {
@@ -70,7 +70,7 @@ const Panel: React.FC<TPanelProps> = ({
   };
 
   const handleChangeColor = (color): void => {
-    dispatchChangeColor(color);
+    dispatchChangeColor({ color });
   };
 
   return (
